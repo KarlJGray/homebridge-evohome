@@ -292,7 +292,7 @@ EvohomePlatform.prototype.renewSession = function () {
   var that = this;
   var session = this.sessionObject;
   session
-    ._renew()
+    .renewToken()
     .then(function (json) {
       // renew session token
       session.sessionId = "bearer " + json.access_token;
