@@ -10,7 +10,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "ignorePatterns": ["bin/", "lib/"],
+  "ignorePatterns": ["bin/"],
   "rules": {
     "quotes": ["error", "double"],
     "indent": ["error", 2, { "SwitchCase": 1 }],
@@ -22,6 +22,8 @@
     "eqeqeq": "error",
     "curly": ["error", "all"],
     "brace-style": ["error"],
+
+    "no-var": 1,
 
     "@typescript-eslint/no-non-null-assertion": "off" // currently disabled, hap-nodejs has some bad typing (like getCharacteristic) for this to be enabled
   }
