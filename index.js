@@ -299,7 +299,7 @@ EvohomePlatform.prototype.renewSession = function () {
       session.refreshToken = json.refresh_token;
       that.log("Renewed Honeywell API authentication token!");
     })
-    .fail(function (err) {
+    .catch(function (err) {
       this.log("Renewing Honeywell API authentication token failed:", err);
     });
 };
@@ -483,17 +483,17 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                       }
                     }.bind(this)
                   )
-                  .fail(function (err) {
+                  .catch(function (err) {
                     this.log("Evohome Failed:", err);
                   });
               }.bind(this)
             )
-            .fail(function (err) {
+            .catch(function (err) {
               this.log("Evohome Failed:", err);
             });
         }.bind(this)
       )
-      .fail(function (err) {
+      .catch(function (err) {
         this.log("Evohome Failed:", err);
       });
 
@@ -623,7 +623,7 @@ EvohomeThermostatAccessory.prototype = {
               // set target temperature here also to prevent from setting temperature two times
             });
         })
-        .fail(function (err) {
+        .catch(function (err) {
           that.log("Evohome failed:", err);
           that.targetTemperateToSet = -1;
           //callback(null, Number(0));
@@ -960,7 +960,7 @@ EvohomeSwitchAccessory.prototype = {
           throw taskId;
         }
       })
-      .fail(function (err) {
+      .catch(function (err) {
         that.log("Evohome failed:", err);
         callback(err);
       });
