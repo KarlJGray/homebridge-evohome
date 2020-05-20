@@ -64,14 +64,14 @@ module.exports = function (homebridge) {
 
 function EvohomePlatform(log, config) {
   this.sessionObject = null;
+
   this.name = config["name"];
   this.username = config["username"];
   this.password = config["password"];
+
   this.temperatureUnit = config["temperatureUnit"] || "Celsius";
-
   this.locationIndex = config["locationIndex"] || 0;
-
-  this.switchAway = config["switchAway"]; //set to false to hide
+  this.switchAway = config["switchAway"];
   this.switchDayOff = config["switchDayOff"];
   this.switchEco = config["switchEco"];
   this.switchHeatingOff = config["switchHeatingOff"];
@@ -79,11 +79,8 @@ function EvohomePlatform(log, config) {
 
   this.cache_timeout = 300; // seconds
   this.interval_setTemperature = 5; // seconds
-
   this.systemMode = "";
-
   this.log = log;
-
   this.updating = false;
 }
 
