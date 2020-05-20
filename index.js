@@ -907,18 +907,25 @@ EvohomeThermostatAccessory.prototype = {
   },
 };
 
-class EvohomeSwitchAccessory {
-  constructor(platform, log, name, systemId, systemMode, active, username, password) {
-    this.uuid_base = systemId + ":" + systemMode;
-    this.name = name;
-    this.systemId = systemId;
-    this.systemMode = systemMode;
-    this.active = active;
-    this.platform = platform;
-    this.username = username;
-    this.password = password;
-    this.log = log;
-  }
+function EvohomeSwitchAccessory(
+  platform,
+  log,
+  name,
+  systemId,
+  systemMode,
+  active,
+  username,
+  password
+) {
+  this.uuid_base = systemId + ":" + systemMode;
+  this.name = name;
+  this.systemId = systemId;
+  this.systemMode = systemMode;
+  this.active = active;
+  this.platform = platform;
+  this.username = username;
+  this.password = password;
+  this.log = log;
 }
 
 EvohomeSwitchAccessory.prototype = {
