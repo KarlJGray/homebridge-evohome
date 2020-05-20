@@ -762,17 +762,11 @@ EvohomeThermostatAccessory.prototype = {
 
   getTemperatureDisplayUnits: function (callback) {
     var that = this;
-    var temperatureUnits = 0;
+    let temperatureUnits = 0;
 
-    switch (this.temperatureUnit) {
-      case "Fahrenheit":
-        temperatureUnits = 1;
-        break;
-      case "Celsius":
-        temperatureUnits = 0;
-        break;
-      default:
-        temperatureUnits = 0;
+    if (this.temperatureUnit == "Fahrenheit") {
+      // change if not "Celsius"
+      temperatureUnits = 1;
     }
 
     callback(null, Number(temperatureUnits));
