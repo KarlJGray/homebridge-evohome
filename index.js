@@ -744,34 +744,29 @@ EvohomeThermostatAccessory.prototype = {
   },
 
   getTargetTemperature: function (callback) {
+    // Returns the target temperature of the thermostat. This crashes the plugin
+    // if there is no value definded (like with DOMESTIC_HOT_WATER). Implemented
+    // fix to return "0" if the device is not "HeatingZone"
     var that = this;
-
-    // gives back the target temperature of thermostat
-    // crashes the plugin IF there is no value defined (like
-    // with DOMESTIC_HOT_WATER) so we need to chek if it
-    // is defined first
+    let targetTemperature = 0;
     if (this.model == "HeatingZone") {
-      var targetTemperature = this.thermostat.setpointStatus.targetHeatTemperature;
-      that.log(`Target temperature for ${this.name} is ${targetTemperature}°`);
-    } else {
-      var targetTemperature = 0;
-      that.log(`Will set target temperature for ${this.name} to ${targetTemperature}°`);
+      targetTemperature = this.thermostat.setpointStatus.targetHeatTemperature;
     }
+    that.log(`Target temperature for ${this.name} is set to ${targetTemperature}°`);
     callback(null, Number(targetTemperature));
   },
 
   getTemperatureDisplayUnits: function (callback) {
     var that = this;
     let temperatureUnits = 0;
-
     if (this.temperatureUnit == "Fahrenheit") {
-      // change if not "Celsius"
-      temperatureUnits = 1;
+      temperatureUnits = 1; // change if not "Celsius"
     }
-
     callback(null, Number(temperatureUnits));
   },
 
+  // ???
+  // does this even work?!
   setTemperatureDisplayUnits: function (value, callback) {
     var that = this;
 
