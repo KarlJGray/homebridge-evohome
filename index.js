@@ -480,7 +480,6 @@ EvohomePlatform.prototype.periodicUpdate = function () {
         }.bind(this)
       )
       .catch(function (err) {
-        // UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'log' of undefined
         this.log(`Evohome Failed: ${err}`);
         callback([]);
       });
