@@ -107,7 +107,7 @@ EvohomePlatform.prototype = {
             .then(
               function (locations) {
                 this.log(
-                  `You have ${locations.length} location(s). This instance will be using Index No ${that.locationIndex}`
+                  `You have ${locations.length} location(s). This instance will be using Index No. ${that.locationIndex}.`
                 );
                 this.log(`You have ${locations[that.locationIndex].devices.length} device(s).`);
 
@@ -134,9 +134,7 @@ EvohomePlatform.prototype = {
                                   );
 
                                   if (locations[that.locationIndex].devices[deviceId].name == "") {
-                                    // Device name is empty
-                                    // Probably Hot Water
-                                    // Do not store
+                                    // Device name empty -> probably hot water -> do not store
                                     this.log(
                                       "Found blank device name, probably stored hot water. Ignoring device for now."
                                     );
