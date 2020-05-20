@@ -13,13 +13,14 @@
 
 "use strict";
 
-var evohome = require("./lib/evohome.js");
-var Service, Characteristic;
-var config;
-var FakeGatoHistoryService;
-var inherits = require("util").inherits;
+const evohome = require("./lib/evohome.js");
 const moment = require("moment");
-var CustomCharacteristic = {};
+const inherits = require("util").inherits;
+
+let Service, Characteristic;
+let config;
+let FakeGatoHistoryService;
+let CustomCharacteristic = {};
 
 module.exports = function (homebridge) {
   FakeGatoHistoryService = require("fakegato-history")(homebridge);
