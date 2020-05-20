@@ -106,12 +106,9 @@ EvohomePlatform.prototype = {
             .then(
               function (locations) {
                 this.log(
-                  "You have",
-                  locations.length,
-                  "location(s). This instance will be using Index No",
-                  that.locationIndex
+                  `You have ${locations.length} location(s). This instance will be using Index No ${that.locationIndex}`
                 );
-                this.log("You have", locations[that.locationIndex].devices.length, "device(s).");
+                this.log(`You have ${locations[that.locationIndex].devices.length} device(s).`);
 
                 session
                   .getThermostats(locations[that.locationIndex].locationID)
@@ -130,12 +127,9 @@ EvohomePlatform.prototype = {
                                 ) {
                                   // print name of the device
                                   this.log(
-                                    deviceId +
-                                      ": " +
-                                      locations[that.locationIndex].devices[deviceId].name +
-                                      " (" +
-                                      thermostats[thermoId].temperatureStatus.temperature +
-                                      "°)"
+                                    `${deviceId}: ${
+                                      locations[that.locationIndex].devices[deviceId].name
+                                    } (${thermostats[thermoId].temperatureStatus.temperature}°)`
                                   );
 
                                   if (locations[that.locationIndex].devices[deviceId].name == "") {
@@ -151,9 +145,9 @@ EvohomePlatform.prototype = {
                                     // store thermostat in var
                                     var thermostat = thermostats[thermoId];
                                     // store name of device
-                                    var name =
-                                      locations[that.locationIndex].devices[deviceId].name +
-                                      " Thermostat";
+                                    var name = `${
+                                      locations[that.locationIndex].devices[deviceId].name
+                                    } Thermostat`;
                                     // timezone offset in minutes
                                     var offsetMinutes =
                                       locations[that.locationIndex].timeZone.offsetMinutes;
@@ -263,26 +257,26 @@ EvohomePlatform.prototype = {
                           }.bind(this)
                         )
                         .catch(function (err) {
-                          that.log("Evohome failed:", err);
+                          that.log(`Evohome failed: ${err}`);
                           callback([]);
                         });
                     }.bind(this)
                   )
                   .catch(function (err) {
-                    that.log("Evohome failed:", err);
+                    that.log(`Evohome failed: ${err}`);
                     callback([]);
                   });
               }.bind(this)
             )
             .catch(function (err) {
-              that.log("Evohome Failed:", err);
+              that.log(`Evohome Failed: ${err}`);
               callback([]);
             });
         }.bind(this)
       )
       .catch(function (err) {
         // tell me if login did not work!
-        that.log("Error during Login:", err);
+        that.log(`Error during Login: ${err}`);
         callback([]);
       });
   },
@@ -293,14 +287,14 @@ EvohomePlatform.prototype.renewSession = function () {
   var session = this.sessionObject;
   session
     .renewToken()
-    .then(function (json) {
+    .then((json) => {
       // renew session token
       session.sessionId = "bearer " + json.access_token;
       session.refreshToken = json.refresh_token;
       that.log("Renewed Honeywell API authentication token!");
     })
     .catch(function (err) {
-      this.log("Renewing Honeywell API authentication token failed:", err);
+      this.log(`Renewing Honeywell API authentication token failed: ${err}`);
     });
 };
 
@@ -362,23 +356,13 @@ EvohomePlatform.prototype.periodicUpdate = function () {
 
                                   if (oldCurrentTemp != newCurrentTemp && service) {
                                     this.log(
-                                      "Updating: " +
-                                        device.name +
-                                        " currentTempChange from: " +
-                                        oldCurrentTemp +
-                                        " to: " +
-                                        newCurrentTemp
+                                      `Updating: ${device.name} currentTempChange from: ${oldCurrentTemp} to: ${newCurrentTemp}`
                                     );
                                   }
 
                                   if (oldTargetTemp != newTargetTemp && service) {
                                     this.log(
-                                      "Updating: " +
-                                        device.name +
-                                        " targetTempChange from: " +
-                                        oldTargetTemp +
-                                        " to: " +
-                                        newTargetTemp
+                                      `Updating: ${device.name} targetTempChange from: ${oldTargetTemp} to: ${newTargetTemp}`
                                     );
                                   }
 
@@ -423,7 +407,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
 
                                 var newAwayActive = systemModeStatus.mode == "Away" ? true : false;
                                 if (this.myAccessories[i].active != newAwayActive) {
-                                  this.log("Updating system mode Away to " + newAwayActive);
+                                  this.log(`Updating system mode Away to ${newAwayActive}`);
                                   this.myAccessories[i].active = newAwayActive;
                                 }
                               } else if (
@@ -435,7 +419,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newDayOffActive =
                                   systemModeStatus.mode == "DayOff" ? true : false;
                                 if (this.myAccessories[i].active != newDayOffActive) {
-                                  this.log("Updating system mode DayOff to " + newDayOffActive);
+                                  this.log(`Updating system mode DayOff to ${newDayOffActive}`);
                                   this.myAccessories[i].active = newDayOffActive;
                                 }
                               } else if (
@@ -448,7 +432,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                   systemModeStatus.mode == "HeatingOff" ? true : false;
                                 if (this.myAccessories[i].active != newHeatingOffActive) {
                                   this.log(
-                                    "Updating system mode HeatingOff to " + newHeatingOffActive
+                                    `Updating system mode HeatingOff to ${newHeatingOffActive}`
                                   );
                                   this.myAccessories[i].active = newHeatingOffActive;
                                 }
@@ -461,7 +445,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newEcoActive =
                                   systemModeStatus.mode == "AutoWithEco" ? true : false;
                                 if (this.myAccessories[i].active != newEcoActive) {
-                                  this.log("Updating system mode Eco to " + newEcoActive);
+                                  this.log(`Updating system mode Eco to ${newEcoActive}`);
                                   this.myAccessories[i].active = newEcoActive;
                                 }
                               } else if (
@@ -473,7 +457,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newCustomActive =
                                   systemModeStatus.mode == "Custom" ? true : false;
                                 if (this.myAccessories[i].active != newCustomActive) {
-                                  this.log("Updating system mode Custom to " + newCustomActive);
+                                  this.log(`Updating system mode Custom to ${newCustomActive}`);
                                   this.myAccessories[i].active = newCustomActive;
                                 }
                               }
@@ -484,20 +468,20 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                     }.bind(this)
                   )
                   .catch(function (err) {
-                    this.log("Evohome Failed:", err);
+                    this.log(`Evohome Failed: ${err}`);
                     callback([]);
                   });
               }.bind(this)
             )
             .catch(function (err) {
-              this.log("Evohome Failed:", err);
+              this.log(`Evohome Failed: ${err}`);
               callback([]);
             });
         }.bind(this)
       )
       .catch(function (err) {
         // UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'log' of undefined
-        this.log("Evohome Failed:", err);
+        this.log(`Evohome Failed: ${err}`);
         callback([]);
       });
 
@@ -582,13 +566,13 @@ EvohomeThermostatAccessory.prototype = {
             timeZone: "Europe/Berlin",
             hour12: false,
           });
-          that.log("The current time is", currenttime);
+          that.log(`The current time is ${currenttime}`);
           var proceed = true;
           var nextScheduleTime = "";
 
           for (var scheduleId in schedule) {
             if (schedule[scheduleId].dayOfWeek == weekday[weekdayNumber]) {
-              that.log("Schedule points for today (" + schedule[scheduleId].dayOfWeek + ")");
+              that.log(`Schedule points for today (${schedule[scheduleId].dayOfWeek})`);
               var switchpoints = schedule[scheduleId].switchpoints;
               for (var switchpointId in switchpoints) {
                 var logline = "- " + switchpoints[switchpointId].timeOfDay;
@@ -610,10 +594,9 @@ EvohomeThermostatAccessory.prototype = {
           }
 
           that.log(
-            "Setting target temperature for",
-            that.name,
-            "to",
-            value + "° until " + nextScheduleTime
+            `Setting target temperature for ${
+              that.name
+            } to ${`${value}° until ${nextScheduleTime}`}`
           );
 
           session
@@ -628,7 +611,7 @@ EvohomeThermostatAccessory.prototype = {
             });
         })
         .catch(function (err) {
-          that.log("Evohome failed:", err);
+          that.log(`Evohome failed: ${err}`);
           that.targetTemperateToSet = -1;
           //callback(null, Number(0));
         });
@@ -641,7 +624,7 @@ EvohomeThermostatAccessory.prototype = {
     // need to refresh data if outdated!!
     var currentTemperature = this.thermostat.temperatureStatus.temperature;
     callback(null, Number(currentTemperature));
-    that.log("Current temperature of " + this.name + " is " + currentTemperature + "°");
+    that.log(`Current temperature of ${this.name} is ${currentTemperature}°`);
   },
 
   getCurrentHeatingCoolingState: function (callback) {
@@ -667,7 +650,7 @@ EvohomeThermostatAccessory.prototype = {
   getName: function (callback) {
     var that = this;
 
-    that.log("requesting name of", this.name);
+    that.log(`requesting name of ${this.name}`);
 
     callback(this.name);
   },
@@ -697,7 +680,7 @@ EvohomeThermostatAccessory.prototype = {
 
       // set temperature to 5 degrees permanently when heating is "off"
       session.setHeatSetpoint(that.device.zoneID, 5, null).then(function (taskId) {
-        that.log("Heating is set off for " + that.name + " (set to 5°)");
+        that.log(`Heating is set off for ${that.name} (set to 5°)`);
         that.log(taskId);
         // returns taskId if successful
         that.thermostat.setpointStatus.targetHeatTemperature = 5;
@@ -711,7 +694,7 @@ EvohomeThermostatAccessory.prototype = {
 
           // set thermostat to follow the schedule by passing 0 to the method
           session.setHeatSetpoint(that.device.zoneID, 0, null).then(function (taskId) {
-            that.log("Cancelled override for " + that.name + " (set to follow schedule)");
+            that.log(`Cancelled override for ${that.name} (set to follow schedule)`);
             that.log(taskId);
             // returns taskId if successful
           });
@@ -725,7 +708,7 @@ EvohomeThermostatAccessory.prototype = {
 
       // set thermostat to follow the schedule by passing 0 to the method
       session.setHeatSetpoint(that.device.zoneID, 0, null).then(function (taskId) {
-        that.log("Cancelled override for " + that.name + " (set to follow schedule)");
+        that.log(`Cancelled override for ${that.name} (set to follow schedule)`);
         that.log(taskId);
         // returns taskId if successful
       });
@@ -754,7 +737,7 @@ EvohomeThermostatAccessory.prototype = {
   setTargetTemperature: function (value, callback) {
     var that = this;
 
-    that.log("Request to set target temperature to " + value);
+    that.log(`Request to set target temperature to ${value}`);
 
     that.targetTemperateToSet = value;
     callback(null, Number(1));
@@ -767,12 +750,12 @@ EvohomeThermostatAccessory.prototype = {
     // crashes the plugin IF there is no value defined (like
     // with DOMESTIC_HOT_WATER) so we need to chek if it
     // is defined first
-    if ((this.model = "HeatingZone")) {
+    if (this.model == "HeatingZone") {
       var targetTemperature = this.thermostat.setpointStatus.targetHeatTemperature;
-      that.log("Target temperature for", this.name, "is", targetTemperature + "°");
+      that.log(`Target temperature for ${this.name} is ${targetTemperature}°`);
     } else {
       var targetTemperature = 0;
-      that.log("Will set target temperature for", this.name, "to " + targetTemperature + "°");
+      that.log(`Will set target temperature for ${this.name} to ${targetTemperature}°`);
     }
     callback(null, Number(targetTemperature));
   },
@@ -798,7 +781,7 @@ EvohomeThermostatAccessory.prototype = {
   setTemperatureDisplayUnits: function (value, callback) {
     var that = this;
 
-    that.log("set temperature units to", value);
+    that.log(`set temperature units to ${value}`);
     callback();
   },
 
@@ -931,7 +914,7 @@ function EvohomeSwitchAccessory(
 EvohomeSwitchAccessory.prototype = {
   getActive: function (callback) {
     var that = this;
-    that.log("System mode " + that.systemMode + " is " + that.active);
+    that.log(`System mode ${that.systemMode} is ${that.active}`);
     callback(null, that.active);
   },
 
@@ -950,7 +933,7 @@ EvohomeSwitchAccessory.prototype = {
       .setSystemMode(that.systemId, systemMode)
       .then(function (taskId) {
         if (taskId.id != null) {
-          that.log("System mode is set to: " + systemMode);
+          that.log(`System mode is set to: ${systemMode}`);
           that.log(taskId);
 
           // force update to get newest values from Honeywell with delay of 3 seconds (else it's too fast)
@@ -965,7 +948,7 @@ EvohomeSwitchAccessory.prototype = {
         }
       })
       .catch(function (err) {
-        that.log("Evohome failed:", err);
+        that.log(`Evohome failed: ${err}`);
         callback(err);
       });
   },
