@@ -403,7 +403,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
 
                                 var newAwayActive = systemModeStatus.mode == "Away" ? true : false;
                                 if (this.myAccessories[i].active != newAwayActive) {
-                                  this.log(`Updating system mode Away to ${newAwayActive}`);
+                                  this.log(`Updating system mode Away to ${newAwayActive}.`);
                                   this.myAccessories[i].active = newAwayActive;
                                 }
                               } else if (
@@ -415,7 +415,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newDayOffActive =
                                   systemModeStatus.mode == "DayOff" ? true : false;
                                 if (this.myAccessories[i].active != newDayOffActive) {
-                                  this.log(`Updating system mode DayOff to ${newDayOffActive}`);
+                                  this.log(`Updating system mode DayOff to ${newDayOffActive}.`);
                                   this.myAccessories[i].active = newDayOffActive;
                                 }
                               } else if (
@@ -428,7 +428,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                   systemModeStatus.mode == "HeatingOff" ? true : false;
                                 if (this.myAccessories[i].active != newHeatingOffActive) {
                                   this.log(
-                                    `Updating system mode HeatingOff to ${newHeatingOffActive}`
+                                    `Updating system mode HeatingOff to ${newHeatingOffActive}.`
                                   );
                                   this.myAccessories[i].active = newHeatingOffActive;
                                 }
@@ -441,7 +441,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newEcoActive =
                                   systemModeStatus.mode == "AutoWithEco" ? true : false;
                                 if (this.myAccessories[i].active != newEcoActive) {
-                                  this.log(`Updating system mode Eco to ${newEcoActive}`);
+                                  this.log(`Updating system mode Eco to ${newEcoActive}.`);
                                   this.myAccessories[i].active = newEcoActive;
                                 }
                               } else if (
@@ -453,7 +453,7 @@ EvohomePlatform.prototype.periodicUpdate = function () {
                                 var newCustomActive =
                                   systemModeStatus.mode == "Custom" ? true : false;
                                 if (this.myAccessories[i].active != newCustomActive) {
-                                  this.log(`Updating system mode Custom to ${newCustomActive}`);
+                                  this.log(`Updating system mode Custom to ${newCustomActive}.`);
                                   this.myAccessories[i].active = newCustomActive;
                                 }
                               }
@@ -675,7 +675,7 @@ EvohomeThermostatAccessory.prototype = {
 
       // set temperature to 5 degrees permanently when heating is "off"
       session.setHeatSetpoint(that.device.zoneID, 5, null).then(function (taskId) {
-        that.log(`Heating is set off for ${that.name} (set to 5°)`);
+        that.log(`Heating is set to OFF for ${that.name} (set to 5°)`);
         that.log(taskId);
         // returns taskId if successful
         that.thermostat.setpointStatus.targetHeatTemperature = 5;
@@ -685,11 +685,11 @@ EvohomeThermostatAccessory.prototype = {
       // HEAT or COOL
       that.getTargetHeatingCooling(function (dummy, currentState) {
         if (currentState == 0) {
-          that.log("HEAT or COOL selected, previous state OFF, cancelling override");
+          that.log("HEAT or COOL selected, previous state OFF, cancelling override.");
 
           // set thermostat to follow the schedule by passing 0 to the method
           session.setHeatSetpoint(that.device.zoneID, 0, null).then(function (taskId) {
-            that.log(`Cancelled override for ${that.name} (set to follow schedule)`);
+            that.log(`Cancelled override for ${that.name} (set to follow schedule).`);
             that.log(taskId);
             // returns taskId if successful
           });
@@ -699,11 +699,11 @@ EvohomeThermostatAccessory.prototype = {
       });
     } else {
       // AUTO
-      that.log("AUTO selected, cancelling overrides");
+      that.log("AUTO selected, cancelling overrides.");
 
       // set thermostat to follow the schedule by passing 0 to the method
       session.setHeatSetpoint(that.device.zoneID, 0, null).then(function (taskId) {
-        that.log(`Cancelled override for ${that.name} (set to follow schedule)`);
+        that.log(`Cancelled override for ${that.name} (set to follow schedule).`);
         that.log(taskId);
         // returns taskId if successful
       });
