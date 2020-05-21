@@ -352,13 +352,13 @@ EvohomePlatform.prototype.periodicUpdate = function () {
 
                                   if (oldCurrentTemp != newCurrentTemp && service) {
                                     this.log(
-                                      `Updating: ${device.name} currentTempChange from: ${oldCurrentTemp} to: ${newCurrentTemp}`
+                                      `Updating: Temperature on ${device.name} changed from ${oldCurrentTemp}° to ${newCurrentTemp}°.`
                                     );
                                   }
 
                                   if (oldTargetTemp != newTargetTemp && service) {
                                     this.log(
-                                      `Updating: ${device.name} targetTempChange from: ${oldTargetTemp} to: ${newTargetTemp}`
+                                      `Updating: Changing target temperature on ${device.name} from ${oldTargetTemp}° to ${newTargetTemp}°.`
                                     );
                                   }
 
