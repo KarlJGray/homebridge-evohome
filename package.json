@@ -21,10 +21,8 @@
     "homebridge": ">=0.3.1"
   },
   "dependencies": {
-    "lodash": ">=4.17.13",
+    "axios": "^0.19.2",
     "moment": "^2.18.1",
-    "q": "~1.5.1",
-    "request": ">=2.68.0",
     "fakegato-history": ">=0.6.1"
   },
   "devDependencies": {
